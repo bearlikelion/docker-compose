@@ -1,0 +1,20 @@
+#docker-compose.yml
+
+version: "3"
+
+services:
+  bitwarden:
+    container_name: bitwarden
+    image: bitwardenrs/server
+    restart: always
+    volumes:
+      - ./bw-data:/data
+      - ./ssl:/ssl
+    ports:
+        - 8443:80
+    environment:
+      WEBSOCKET_ENABLED: "true" # Required to use websockets
+      SIGNUPS_ALLOWED: "true" # set to false to disable signups
+      ROCKET_TLS: '{certs = "/ssl/vault.crt", key = "/ssl/vault.key"}'
+      ADMIN_TOKEN: '0b3GlbTjxUj8bGoJ9lETuiSYATIJFUIDUOh8JS0E8t19/8TGR7xsygchE7CkxaOk'
+      SIGNUPS_ALLOWED: 'false'
