@@ -1,0 +1,86 @@
+version: "3"
+services:
+  # Deluge - torrent downloader
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    # network_mode: host
+    ports:
+      - 8112:8112
+      - 45000:45000
+      - 58846:58846
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK_SET=022
+      - TZ=America/New_York
+    volumes:
+      - /opt/media/deluge/config:/config
+      - "mediamount:/media"
+    restart: unless-stopped
+
+  # Radarr - Movie indexer
+  radarr:
+    image: linuxserver/radarr:nightly
+    container_name: radarr
+    ports:
+      - 7878:7878
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK_SET=022
+      - TZ=America/New_York
+    volumes:
+      - /opt/media/radarr:/config
+      - "mediamount:/media"
+    restart: unless-stopped
+
+  # Sonarr - Television indexer
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr
+    ports:
+      - 8989:8989
+    environment:
+      - PUID=0
+      - PGID=0
+      - UMASK_SET=022
+      - TZ=America/New_York
+    volumes:
+      - /opt/media/sonarr:/config
+      - "mediamount:/media"
+    restart: unless-stopped
+
+  # Jackett - torrent indexer for Radarr/Sonarr
+  jackett:
+    image: linuxserver/jackett
+    container_name: jackett
+    ports:
+      - 9117:9117
+    environment:
+      - UMASK_SET=022
+      - TZ=America/New_York
+    volumes:
+      - /opt/media/jackett:/config
+    restart: unless-stopped
+
+  # Tautulli - Plex Stats (formally PlexPy)
+  tautulli:
+    image: linuxserver/tautulli
+    container_name: tautulli
+    ports:
+      - 8181:8181
+    environment:
+      - UMASK_SET=022
+      - TZ=America/New_York
+    volumes:
+      - /opt/media/tautulli:/config
+    restart: unless-stopped
+
+volumes:
+  mediamount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=freenas.arneman.home,rw,hard,intr
+      device: ":/mnt/FreeNAS-Vol/Media"
