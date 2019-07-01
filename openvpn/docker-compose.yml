@@ -1,0 +1,19 @@
+version: "2"
+services:
+  openvpn-as:
+    image: linuxserver/openvpn-as
+    container_name: openvpn-as
+    cap_add:
+      - NET_ADMIN
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - INTERFACE=eth0 #optional
+    volumes:
+      - /opt/openvpn/config:/config
+    ports:
+      - 943:943
+      - 9443:9443
+      - 13194:13194/udp
+    restart: unless-stopped
