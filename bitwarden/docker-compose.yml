@@ -16,3 +16,5 @@ services:
       WEBSOCKET_ENABLED: "true" # Required to use websockets
       ROCKET_TLS: '{certs = "/ssl/vault.crt", key = "/ssl/vault.key"}'
       SIGNUPS_ALLOWED: 'false'
+    env_file:
+      - bw.env

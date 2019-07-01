@@ -15,7 +15,7 @@ services:
       - UMASK_SET=022
       - TZ=America/New_York
     volumes:
-      - /opt/media/deluge/config:/config
+      - ./deluge/config:/config
       - "mediamount:/media"
     restart: unless-stopped
 
@@ -31,7 +31,7 @@ services:
       - UMASK_SET=022
       - TZ=America/New_York
     volumes:
-      - /opt/media/radarr:/config
+      - ./radarr:/config
       - "mediamount:/media"
     restart: unless-stopped
 
@@ -47,7 +47,7 @@ services:
       - UMASK_SET=022
       - TZ=America/New_York
     volumes:
-      - /opt/media/sonarr:/config
+      - ./sonarr:/config
       - "mediamount:/media"
     restart: unless-stopped
 
@@ -61,7 +61,7 @@ services:
       - UMASK_SET=022
       - TZ=America/New_York
     volumes:
-      - /opt/media/jackett:/config
+      - ./jackett:/config
     restart: unless-stopped
 
   # Tautulli - Plex Stats (formally PlexPy)
@@ -74,7 +74,7 @@ services:
       - UMASK_SET=022
       - TZ=America/New_York
     volumes:
-      - /opt/media/tautulli:/config
+      - ./tautulli:/config
     restart: unless-stopped
 
 volumes:
