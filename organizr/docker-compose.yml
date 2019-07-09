@@ -1,0 +1,19 @@
+version: '3'
+services:
+  organizr:
+    image: organizrtools/organizr-v2
+    container_name: organizr
+    volumes:
+     - ./config:/config
+    # ports:
+    #  - "80:80"
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:dash.arneman.home,dash
+    networks:
+      - traefik
+    restart: unless-stopped
+
+networks:
+    traefik:
+        external: true

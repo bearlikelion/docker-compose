@@ -1,19 +1,37 @@
-version: "2"
+version: '3'
 services:
-  openvpn-as:
-    image: linuxserver/openvpn-as
-    container_name: openvpn-as
+  openvpn:
     cap_add:
-      - NET_ADMIN
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Europe/London
-      - INTERFACE=eth0 #optional
-    volumes:
-      - /opt/openvpn/config:/config
+     - NET_ADMIN
+    image: kylemanna/openvpn
+    container_name: openvpn
     ports:
-      - 943:943
-      - 9443:9443
-      - 13194:13194/udp
+     - "1194:1194/udp"
+    networks:
+      traefik:
+      vpn:
+        ipv4_address: 172.23.0.2
+    volumes:
+     - ./conf:/etc/openvpn
     restart: unless-stopped
+
+  openvpn-monitor:
+    container_name: openvpn-monitor
+    image: mumblepins/openvpn-monitor
+    ports:
+      - "8081:80"
+    networks:
+      traefik:
+      vpn:
+        ipv4_address: 172.23.0.3
+    env_file:
+      monitor.env
+    restart: unless-stopped
+
+networks:
+  vpn:
+    ipam:
+      config:
+        - subnet: 172.23.0.0/16
+  traefik:
+    external: true

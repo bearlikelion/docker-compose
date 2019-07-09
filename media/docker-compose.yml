@@ -82,5 +82,5 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=freenas.arneman.home,rw,hard,intr
+      o: addr=freenas.arneman.home,nolock,soft,rw
       device: ":/mnt/FreeNAS-Vol/Media"

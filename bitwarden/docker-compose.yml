@@ -6,15 +6,29 @@ services:
   bitwarden:
     container_name: bitwarden
     image: bitwardenrs/server
-    restart: always
     volumes:
       - ./bw-data:/data
       - ./ssl:/ssl
-    ports:
-        - 8443:80
+    # ports:
+    #     - 8443:80
+    labels:
+      - traefik.enable=true
+      - traefik.web.frontend.rule=Host:vault.arneman.home,vault.arneman.me,vault
+      - traefik.web.port=80
+      - traefik.hub.frontend.rule=Host:vault.arneman.home,vault.arneman.me,vault;Path:/notifications/hub
+      - traefik.hub.port=3012
+      - traefik.hub.protocol=ws
+      - traefik.frontend.entryPoints=redirecthttps,https
     environment:
-      WEBSOCKET_ENABLED: "true" # Required to use websockets
-      ROCKET_TLS: '{certs = "/ssl/vault.crt", key = "/ssl/vault.key"}'
+      WEBSOCKET_ENABLED: 'true'
+      # ROCKET_TLS: '{certs = "/ssl/vault.crt", key = "/ssl/vault.key"}'
       SIGNUPS_ALLOWED: 'false'
+    networks:
+      - traefik
     env_file:
       - bw.env
+    restart: unless-stopped
+
+networks:
+    traefik:
+        external: true
