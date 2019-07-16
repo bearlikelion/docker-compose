@@ -4,16 +4,21 @@ services:
   deluge:
     image: linuxserver/deluge
     container_name: deluge
-    # network_mode: host
-    ports:
-      - 8112:8112
-      - 45000:45000
-      - 58846:58846
     environment:
       - PUID=0
       - PGID=0
       - UMASK_SET=022
       - TZ=America/New_York
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:deluge.arneman.home,deluge,downloads,downloads.arneman.home
+      - traefik.frontend.entryPoints=http
+      - traefik.port=8112
+    networks:
+      - traefik
+    ports:
+      - 45000:45000
+      - 58846:58846
     volumes:
       - ./deluge/config:/config
       - "mediamount:/media"
@@ -23,13 +28,18 @@ services:
   radarr:
     image: linuxserver/radarr:nightly
     container_name: radarr
-    ports:
-      - 7878:7878
     environment:
       - PUID=0
       - PGID=0
       - UMASK_SET=022
       - TZ=America/New_York
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:radarr.arneman.home,radarr,movies,movies.arneman.home
+      - traefik.frontend.entryPoints=http
+      - traefik.port=7878
+    networks:
+      - traefik
     volumes:
       - ./radarr:/config
       - "mediamount:/media"
@@ -39,13 +49,18 @@ services:
   sonarr:
     image: linuxserver/sonarr
     container_name: sonarr
-    ports:
-      - 8989:8989
     environment:
       - PUID=0
       - PGID=0
       - UMASK_SET=022
       - TZ=America/New_York
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:sonarr.arneman.home,sonarr,tv,tv.arneman.home
+      - traefik.frontend.entryPoints=http
+      - traefik.port=8989
+    networks:
+      - traefik
     volumes:
       - ./sonarr:/config
       - "mediamount:/media"
@@ -55,11 +70,16 @@ services:
   jackett:
     image: linuxserver/jackett
     container_name: jackett
-    ports:
-      - 9117:9117
     environment:
       - UMASK_SET=022
       - TZ=America/New_York
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:jackett.arneman.home,jackett
+      - traefik.frontend.entryPoints=http
+      - traefik.port=9117
+    networks:
+      - traefik
     volumes:
       - ./jackett:/config
     restart: unless-stopped
@@ -68,11 +88,16 @@ services:
   tautulli:
     image: linuxserver/tautulli
     container_name: tautulli
-    ports:
-      - 8181:8181
     environment:
       - UMASK_SET=022
       - TZ=America/New_York
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:plexpy.arneman.home,plexpy
+      - traefik.frontend.entryPoints=http
+      - traefik.port=8181
+    networks:
+      - traefik
     volumes:
       - ./tautulli:/config
     restart: unless-stopped
@@ -84,3 +109,7 @@ volumes:
       type: nfs
       o: addr=freenas.arneman.home,nolock,soft,rw
       device: ":/mnt/FreeNAS-Vol/Media"
+
+networks:
+    traefik:
+        external: true

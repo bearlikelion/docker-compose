@@ -10,6 +10,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.frontend.rule=Host:dash.arneman.home,dash
+      - traefik.frontend.entryPoints=http
     networks:
       - traefik
     restart: unless-stopped

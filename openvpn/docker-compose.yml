@@ -18,8 +18,10 @@ services:
   openvpn-monitor:
     container_name: openvpn-monitor
     image: mumblepins/openvpn-monitor
-    ports:
-      - "8081:80"
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:vpnstatus,vpnstatus.arneman.home
+      - traefik.frontend.entryPoints=http
     networks:
       traefik:
       vpn:
