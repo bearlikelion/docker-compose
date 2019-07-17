@@ -15,3 +15,11 @@ Tautulli | Plex Analytics and Statistics | [Hub](https://hub.docker.com/r/linuxs
 ### Volumes
 
 I mount a NFS Media Share to the containers in the docker-compose file
+
+    volumes:
+    mediamount:
+        driver: local
+        driver_opts:
+        type: nfs
+        o: addr=freenas.arneman.home,nolock,soft,rw
+        device: ":/mnt/FreeNAS-Vol/Media"
