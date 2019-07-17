@@ -1,0 +1,13 @@
+version: '3'
+services:
+  relay:
+    image: brunneis/tor-relay-arm:x86-64
+    container_name: relay
+    # command: "./launch.sh brunneis/tor-relay:x86-64 middle"
+    ports:
+      - '9001:9001'
+      - '9030:9030'
+    env_file:
+      - tor.env
+    volumes:
+      - './tor-data:/home/tor/data:Z'

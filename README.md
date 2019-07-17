@@ -1,6 +1,8 @@
 # Mark's Docker Compose Files
 
-This repo is meant to be used as a reference for others when creating and managing multiple docker-compose files for use with Traefik as a resverse proxy. I run my containers on an [Alpine Linux](https://alpinelinux.org/) virtual machine.
+This repo is meant to be informational and used as a reference for others when creating and managing multiple docker-compose files with Traefik acting as a reverse proxy.
+
+I run my containers on an [Alpine Linux](https://alpinelinux.org/) virtual machine.
 
 ## Requirements
 
@@ -15,13 +17,15 @@ BitWarden_rs | Password manager | [Hub](https://hub.docker.com/r/bitwardenrs/ser
 Matomo | Website Analytics | [Hub](https://hub.docker.com/_/matomo)
 Media | Automated media server -  Deluge Jackett Radarr Sonarr | [ReadMe](/media/README.md)
 OpenVPN | OpenVPN Server |
+Relay | Tor Relay Server | [Hub](https://hub.docker.com/r/brunneis/tor-relay-arm)
 Teamspeak | Teamspeak 3 Server | [Hub](https://hub.docker.com/_/teamspeak)
 Traefik | Traefik reverse proxy | [Hub](https://hub.docker.com/_/traefik) - [Docs](https://docs.traefik.io/)
 Watchtower | Container auto-updates | [Hub](https://hub.docker.com/r/v2tec/watchtower)
 
 #### Environment Files
 
-To keep secrets safe I use .env files in my docker-compose.yml for secrets and passwords. Each should be provided with a .env.example file for example usage
+To keep secrets safe I use .env files in my docker-compose.yml for secrets and passwords.\
+Each should be provided with a .env.example file for example usage
 
 #### Volumes
 
