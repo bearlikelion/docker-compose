@@ -1,0 +1,52 @@
+debug = false
+sendAnonymousUsage = true
+# defaultEntryPoints = ["http", "https"]
+
+################################################################
+# API and dashboard configuration
+################################################################
+[api]
+
+################################################################
+# Logging
+################################################################
+logLevel = "ERROR"
+[traefikLog]
+  filePath = "/etc/traefik/logs/traefik.log"
+
+[accessLog]
+  filePath = "/etc/traefik/logs/access.log"
+
+################################################################
+# Entry Points
+################################################################
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+
+  [entryPoints.redirecthttps]
+    entryPoint = "https"
+
+  [entryPoints.auth]
+    headerField = "X-WebAuth-User"
+    [entryPoints.auth.auth.basic]
+      removeHeader = true
+      users = [
+        "test:$apr1$jQMdOW7a$2TrTYhURODyDg8szktDWk0",
+      ]
+
+  [entryPoints.https]
+  address = ":443"
+    [entryPoints.https.tls]
+      [[entryPoints.https.tls.certificates]]
+      certFile = "/ssl/vault.crt"
+      keyFile = "/ssl/vault.key"
+
+################################################################
+# Docker configuration backend
+################################################################
+[docker]
+domain = "arneman.home"
+watch = true
+network = "traefik"
+exposedByDefault = false

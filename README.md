@@ -9,15 +9,15 @@ This repo is meant to be used as a reference for others when creating and managi
 
 ### Containers
 
-| Container | Description | Additional
-|----------|----------|----------|
-| BitWarden_rs | Password manager | [Hub](https://hub.docker.com/r/bitwardenrs/server)
-| Matomo | Website Analytics | [Hub](https://hub.docker.com/_/matomo)
-| Media | Automated media server -  Deluge Jackett Radarr Sonarr | [ReadMe]()
-| OpenVPN | OpenVPN Server |
-| Teamspeak | Teamspeak 3 Server | [Hub](https://hub.docker.com/_/teamspeak)
-| Traefik | Traefik reverse proxy | [Hub](https://hub.docker.com/_/traefik) - [Docs](https://docs.traefik.io/)
-| Watchtower | Container auto-updates | [Hub](https://hub.docker.com/r/v2tec/watchtower)
+Container | Description | Additional
+----------|----------|----------
+BitWarden_rs | Password manager | [Hub](https://hub.docker.com/r/bitwardenrs/server)
+Matomo | Website Analytics | [Hub](https://hub.docker.com/_/matomo)
+Media | Automated media server -  Deluge Jackett Radarr Sonarr | [ReadMe]()
+OpenVPN | OpenVPN Server |
+Teamspeak | Teamspeak 3 Server | [Hub](https://hub.docker.com/_/teamspeak)
+Traefik | Traefik reverse proxy | [Hub](https://hub.docker.com/_/traefik) - [Docs](https://docs.traefik.io/)
+Watchtower | Container auto-updates | [Hub](https://hub.docker.com/r/v2tec/watchtower)
 
 #### Environment Files
 
