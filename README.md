@@ -13,7 +13,7 @@ Container | Description | Additional
 ----------|----------|----------
 BitWarden_rs | Password manager | [Hub](https://hub.docker.com/r/bitwardenrs/server)
 Matomo | Website Analytics | [Hub](https://hub.docker.com/_/matomo)
-Media | Automated media server -  Deluge Jackett Radarr Sonarr | [ReadMe]()
+Media | Automated media server -  Deluge Jackett Radarr Sonarr | [ReadMe](/media/README.md)
 OpenVPN | OpenVPN Server |
 Teamspeak | Teamspeak 3 Server | [Hub](https://hub.docker.com/_/teamspeak)
 Traefik | Traefik reverse proxy | [Hub](https://hub.docker.com/_/traefik) - [Docs](https://docs.traefik.io/)
