@@ -39,7 +39,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.backend=matomo"
-      - "traefik.frontend.rule=Host:matomo,matomo.arneman.home"
+      - "traefik.frontend.rule=Host:stats,stats.arneman.home,stats.arneman.me"
       - "traefik.port=80"
     networks:
       - traefik
