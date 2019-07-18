@@ -1,0 +1,27 @@
+version: '3'
+services:
+  netdata:
+    image: netdata/netdata
+    container_name: netdata
+    hostname: alpine.arneman.home # set to fqdn of host
+    ports:
+      - 19999:19999
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:alpine.arneman.home,alpine
+      - traefik.frontend.entryPoints=http
+      - traefik.port=19999
+    cap_add:
+      - SYS_PTRACE
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+networks:
+    traefik:
+        external: true

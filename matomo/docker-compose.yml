@@ -37,10 +37,12 @@ services:
     container_name: matomo_web
     restart: always
     labels:
-      - "traefik.enable=true"
-      - "traefik.backend=matomo"
-      - "traefik.frontend.rule=Host:stats,stats.arneman.home,stats.arneman.me"
-      - "traefik.port=80"
+      - traefik.enable=true
+      - traefik.backend=matomo
+      - traefik.http.frontend.rule=Host:stats,stats.arneman.me
+      - traefik.http.port=80
+      - traefik.https.frontend.rule=Host:stats,stats.arneman.me
+      - traefik.https.port=443
     networks:
       - traefik
       - matomo

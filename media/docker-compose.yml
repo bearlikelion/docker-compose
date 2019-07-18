@@ -102,6 +102,24 @@ services:
       - ./tautulli:/config
     restart: unless-stopped
 
+  ombi:
+    image: linuxserver/ombi
+    container_name: ombi
+    environment:
+      - TZ=America/New_York
+    volumes:
+      - /ombi:/config
+    networks:
+      - traefik
+    ports:
+      - 3579:3579
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:ombi.arneman.home,ombi
+      - traefik.frontend.entryPoints=http
+      - traefik.port=3579
+    restart: unless-stopped
+
 volumes:
   mediamount:
     driver: local
