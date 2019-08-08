@@ -1,0 +1,64 @@
+version: '3'
+
+services:
+  db:
+    container_name: mariadb
+    image: mariadb
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - db:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=cq%*2BqCTtx##J
+    env_file:
+      - db.env
+
+  redis:
+    container_name: redis
+    image: redis:alpine
+    restart: always
+
+  cron:
+    container_name: cron
+    image: nextcloud:fpm-alpine
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+    entrypoint: /cron.sh
+    depends_on:
+      - db
+      - redis
+
+  app:
+    container_name: nextcloud
+    image: nextcloud:fpm
+    restart: always
+    volumes:
+      - nextcloud:/var/www/html
+      - storagemount:/storage
+    environment:
+      - MYSQL_HOST=db
+      - REDIS_HOST=redis
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:cloud,cloud.arneman.home,cloud.arneman.me
+      - traefik.frontend.entryPoints=http,https
+    env_file:
+      - db.env
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  db:
+  nextcloud:
+  storagemount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=freenas.arneman.home,nolock,soft,rw
+      device: ":/mnt/FreeNAS-Vol/Storage"
+
+networks:
+    traefik:
+        external: true
