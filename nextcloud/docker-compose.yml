@@ -12,11 +12,15 @@ services:
       - MYSQL_ROOT_PASSWORD=cq%*2BqCTtx##J
     env_file:
       - db.env
+    networks:
+      - internal
 
   redis:
     container_name: redis
     image: redis:alpine
     restart: always
+    networks:
+      - internal
 
   cron:
     container_name: cron
@@ -25,13 +29,15 @@ services:
     volumes:
       - nextcloud:/var/www/html
     entrypoint: /cron.sh
+    networks:
+      - internal
     depends_on:
       - db
       - redis
 
   app:
     container_name: nextcloud
-    image: nextcloud:fpm
+    image: nextcloud:latest
     restart: always
     volumes:
       - nextcloud:/var/www/html
@@ -39,9 +45,12 @@ services:
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
+    networks:
+      - traefik
+      - internal
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:cloud,cloud.arneman.home,cloud.arneman.me
+      - traefik.frontend.rule=Host:cloud-docker,cloud-docker.arneman.home,cloud-docker.arneman.me
       - traefik.frontend.entryPoints=http,https
     env_file:
       - db.env
@@ -60,5 +69,6 @@ volumes:
       device: ":/mnt/FreeNAS-Vol/Storage"
 
 networks:
-    traefik:
-        external: true
+  internal:
+  traefik:
+    external: true
