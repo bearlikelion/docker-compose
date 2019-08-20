@@ -21,6 +21,7 @@ services:
       - /proc:/host/proc:ro
       - /sys:/host/sys:ro
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
 
 networks:
     traefik:

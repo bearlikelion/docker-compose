@@ -50,8 +50,6 @@ services:
       - matomo:/var/www/html:ro
       # see https://github.com/matomo-org/matomo-nginx
       - ./matomo.conf:/etc/nginx/conf.d/default.conf:ro
-    ports:
-      - 8081:80
 
 volumes:
   db:
