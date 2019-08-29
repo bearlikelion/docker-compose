@@ -13,9 +13,9 @@ services:
     #     - 8443:80
     labels:
       - traefik.enable=true
-      - traefik.web.frontend.rule=Host:vault.arneman.home,vault.arneman.me,vault
+      - traefik.web.frontend.rule=Host:vault.arneman.me
       - traefik.web.port=80
-      - traefik.hub.frontend.rule=Host:vault.arneman.home,vault.arneman.me,vault;Path:/notifications/hub
+      - traefik.hub.frontend.rule=Host:vault.arneman.me;Path:/notifications/hub
       - traefik.hub.port=3012
       - traefik.hub.protocol=ws
       - traefik.frontend.entryPoints=redirecthttps,https

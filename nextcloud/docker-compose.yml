@@ -2,7 +2,7 @@ version: '3'
 
 services:
   db:
-    container_name: mariadb
+    container_name: nextcloud_mariadb
     image: mariadb
     command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
@@ -16,14 +16,14 @@ services:
       - internal
 
   redis:
-    container_name: redis
+    container_name: nextcloud_redis
     image: redis:alpine
     restart: always
     networks:
       - internal
 
   cron:
-    container_name: cron
+    container_name: nextcloud_cron
     image: nextcloud:fpm-alpine
     restart: always
     volumes:
@@ -50,7 +50,7 @@ services:
       - internal
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:cloud-docker,cloud-docker.arneman.home,cloud-docker.arneman.me
+      - traefik.frontend.rule=Host:cloud.arneman.me
       - traefik.frontend.entryPoints=http,https
     env_file:
       - db.env

@@ -16,11 +16,15 @@ Container | Description | Additional
 BitWarden_rs | Password manager | [Hub](https://hub.docker.com/r/bitwardenrs/server)
 Matomo | Website Analytics | [Hub](https://hub.docker.com/_/matomo)
 Media | Automated media server -  Deluge Jackett Radarr Sonarr | [ReadMe](/media/README.md)
-OpenVPN | OpenVPN Server |
+Netdata | Performance monitoring | [Hub](https://hub.docker.com/r/netdata/netdata/)
+Nextcloud | A safe home for all your data | [Hub](https://hub.docker.com/_/nextcloud)
+OpenVPN | OpenVPN Server | **Work in progress**
+Organizr | HTPC/Homelab services organizer | [Hub](https://hub.docker.com/r/organizrtools/organizr-v2)
 Pi-hole | Network based ad blocker | [Hub](https://hub.docker.com/r/pihole/pihole) - [Website](https://pi-hole.net/)
 Relay | Tor Relay Server | [Hub](https://hub.docker.com/r/brunneis/tor-relay-arm)
 Teamspeak | Teamspeak 3 Server | [Hub](https://hub.docker.com/_/teamspeak)
 Traefik | Traefik reverse proxy | [Hub](https://hub.docker.com/_/traefik) - [Docs](https://docs.traefik.io/)
+Warrior | Archive Team warrior | [Hub](https://hub.docker.com/r/archiveteam/warrior-dockerfile/)
 Watchtower | Container auto-updates | [Hub](https://hub.docker.com/r/v2tec/watchtower)
 
 #### Environment Files
@@ -30,7 +34,7 @@ Each should be provided with a .env.example file for example usage
 
 #### Volumes
 
-I create a NFS share on a FreeNAS server for the media containers
+I mount NFS Shared from my FreeNAS Server for external storage to the containers (media, nextcloud, warrior)
 
 #### Installation / Usage
 
@@ -38,6 +42,6 @@ I create a NFS share on a FreeNAS server for the media containers
     cd /<container>/
     docker-compose up -d
 
-## Contributing
+##### Contributing
 
 Feel free to fork and submit pull requests to this repo

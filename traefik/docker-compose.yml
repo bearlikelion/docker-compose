@@ -4,15 +4,14 @@ services:
   traefik:
     image: traefik
     container_name: traefik
-    environment:
-      - "TZ=America/New_York"
+    env_file:
+      - traefik.env
     ports:
       - "80:80"
       - "443:443"
-      # - "8080:8080"
     volumes:
-      - '$PWD/traefik.toml:/etc/traefik/traefik.toml'
       - '/var/run/docker.sock:/var/run/docker.sock'
+      - './traefik.toml:/etc/traefik/traefik.toml'
       - ./logs:/etc/traefik/logs
       - ./acme.json:/acme.json
       - ./ssl:/ssl

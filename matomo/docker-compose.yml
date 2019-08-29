@@ -10,46 +10,32 @@ services:
       - matomo
     volumes:
       - db:/var/lib/mysql
-    # environment:
-    #   - MYSQL_ROOT_PASSWORD=
     env_file:
       - ./db.env
+    restart: unless-stopped
 
-  matomo:
-    image: matomo:fpm-alpine
-    container_name: matomo_app
+  app:
+    image: matomo:latest
+    container_name: matomo
     restart: always
     links:
       - db
     networks:
       - matomo
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:stats.arneman.me
+      - traefik.frontend.entryPoints=http,https
     volumes:
       - ./config:/var/www/html/config:rw
       - ./logs:/var/www/html/logs
       - matomo:/var/www/html
     environment:
-      - MYSQL_HOST=db
+      - MATOMO_DATABASE_HOST=db
     env_file:
       - ./db.env
-
-  web:
-    image: nginx:alpine
-    container_name: matomo_web
-    restart: always
-    labels:
-      - traefik.enable=true
-      - traefik.backend=matomo
-      - traefik.http.frontend.rule=Host:stats,stats.arneman.me
-      - traefik.http.port=80
-      - traefik.https.frontend.rule=Host:stats,stats.arneman.me
-      - traefik.https.port=443
-    networks:
-      - traefik
-      - matomo
-    volumes:
-      - matomo:/var/www/html:ro
-      # see https://github.com/matomo-org/matomo-nginx
-      - ./matomo.conf:/etc/nginx/conf.d/default.conf:ro
+    restart: unless-stopped
 
 volumes:
   db:

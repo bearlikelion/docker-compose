@@ -1,0 +1,32 @@
+version: '3'
+services:
+  warrior:
+    container_name: warrior
+    image: archiveteam/warrior-dockerfile
+    environment:
+      - WARRIOR_ID=warneman
+      - SELECTED_PROJECT=auto
+    # ports:
+    #   - '8001:8001'
+    volumes:
+      - archiver:/data/data
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:warrior,warrior.arneman.home
+      - traefik.frontend.entryPoints=http
+      - traefik.port=8001
+    restart: always
+
+volumes:
+  archiver:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=freenas.arneman.home,nolock,soft,rw
+      device: ":/mnt/FreeNAS-Vol/Archiver"
+
+networks:
+  traefik:
+    external: true

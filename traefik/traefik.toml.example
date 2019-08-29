@@ -46,7 +46,24 @@ logLevel = "ERROR"
 # Docker configuration backend
 ################################################################
 [docker]
-domain = "arneman.home"
+domain = "docker.tld"
 watch = true
 network = "traefik"
 exposedByDefault = false
+
+################################################################
+# Lets Encrypt
+################################################################
+
+[acme]
+email = "acme@domain.tld"
+storage = "acme.json"
+entryPoint = "https"
+onHostRule = true
+resolvers = ["1.1.1.1:53", "8.8.8.8:53"]
+  [acme.dnsChallenge]
+  provider = "cloudflare"
+  delayBeforeCheck = 0
+
+[[acme.domains]]
+  main = "subdomain.domain.tld"

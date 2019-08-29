@@ -15,7 +15,7 @@ services:
       - pihole.env
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:pihole.arneman.home,pihole,pihole-docker.arneman.home,pihole-docker
+      - traefik.frontend.rule=Host:pihole.arneman.home,pihole,pi.hole
       - traefik.frontend.entryPoints=http
       - traefik.port=80
     networks:

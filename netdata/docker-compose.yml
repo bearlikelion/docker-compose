@@ -10,7 +10,7 @@ services:
       - traefik
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:alpine.arneman.home,alpine
+      - traefik.frontend.rule=Host:netdata.arneman.home,netdata
       - traefik.frontend.entryPoints=http
       - traefik.port=19999
     cap_add:
