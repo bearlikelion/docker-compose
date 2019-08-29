@@ -8,8 +8,6 @@ services:
     restart: always
     volumes:
       - db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=cq%*2BqCTtx##J
     env_file:
       - db.env
     networks:
