@@ -17,6 +17,7 @@ services:
     networks:
       - traefik
     ports:
+      - 8112:8112
       - 45000:45000
       - 58846:58846
     volumes:
@@ -33,6 +34,8 @@ services:
       - PGID=0
       - UMASK_SET=022
       - TZ=America/New_York
+    ports:
+      - 7878:7878
     labels:
       - traefik.enable=true
       - traefik.frontend.rule=Host:radarr.arneman.home,radarr,movies,movies.arneman.home
@@ -54,6 +57,8 @@ services:
       - PGID=0
       - UMASK_SET=022
       - TZ=America/New_York
+    ports:
+      - 8989:8989
     labels:
       - traefik.enable=true
       - traefik.frontend.rule=Host:sonarr.arneman.home,sonarr,tv,tv.arneman.home

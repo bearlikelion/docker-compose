@@ -48,7 +48,7 @@ services:
       - internal
     labels:
       - traefik.enable=true
-      - traefik.frontend.rule=Host:cloud.arneman.me
+      - traefik.frontend.rule=Host:cloud.arneman.me,cloud.arneman.home,cloud
       - traefik.frontend.entryPoints=http,https
     env_file:
       - db.env
