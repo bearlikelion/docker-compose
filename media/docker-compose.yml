@@ -2,8 +2,9 @@ version: "3"
 services:
   # Deluge - torrent downloader
   deluge:
-    image: linuxserver/deluge
+    image: linuxserver/deluge:latest
     container_name: deluge
+    network_mode: "host"
     environment:
       - PUID=0
       - PGID=0
@@ -14,8 +15,8 @@ services:
       - traefik.frontend.rule=Host:deluge.arneman.home,deluge,downloads,downloads.arneman.home
       - traefik.frontend.entryPoints=http
       - traefik.port=8112
-    networks:
-      - traefik
+    # networks:
+    #   - traefik
     ports:
       - 8112:8112
       - 45000:45000

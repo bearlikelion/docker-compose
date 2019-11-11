@@ -1,16 +1,17 @@
 version: '3'
 services:
   openvpn:
+    network_mode: "host"
     cap_add:
      - NET_ADMIN
     image: kylemanna/openvpn
     container_name: openvpn
     ports:
      - "1194:1194/udp"
-    networks:
-      traefik:
-      vpn:
-        ipv4_address: 172.23.0.2
+     - "5555:5555"
+    # networks:
+    #   vpn:
+    #     ipv4_address: 172.23.0.2
     volumes:
      - ./conf:/etc/openvpn
     restart: unless-stopped
@@ -24,16 +25,16 @@ services:
       - traefik.frontend.entryPoints=http
     networks:
       traefik:
-      vpn:
-        ipv4_address: 172.23.0.3
+      # vpn:
+      #   ipv4_address: 172.23.0.3
     env_file:
       monitor.env
     restart: unless-stopped
 
 networks:
-  vpn:
-    ipam:
-      config:
-        - subnet: 172.23.0.0/16
+  # vpn:
+  #   ipam:
+  #     config:
+  #       - subnet: 172.23.0.0/16
   traefik:
     external: true
