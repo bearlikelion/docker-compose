@@ -7,7 +7,7 @@ services:
     image: kylemanna/openvpn
     container_name: openvpn
     ports:
-     - "1194:1194/udp"
+     - "8080:8080/udp"
      - "5555:5555"
     # networks:
     #   vpn:
