@@ -1,8 +1,9 @@
 version: '3.3'
 services:
-    guacamole:
-        ports:
-            - '8080:8080'
-        volumes:
-            - ./config:/config
-        image: oznu/guacamole
+  guacamole:
+    container_name: guacamole
+    ports:
+      - '8080:8080'
+    volumes:
+      - ./config:/config
+    image: oznu/guacamole

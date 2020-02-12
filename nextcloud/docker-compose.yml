@@ -3,8 +3,8 @@ version: '3'
 services:
   db:
     container_name: nextcloud_mariadb
-    image: mariadb
-    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    image: mariadb:latest
+    #command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
     restart: always
     volumes:
       - db:/var/lib/mysql
