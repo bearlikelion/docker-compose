@@ -1,0 +1,7 @@
+version: '3.3'
+services:
+  rtmp-hls:
+    image: alqutami/rtmp-hls
+    ports:
+      - '1935:1935'
+      - '8080:8080'

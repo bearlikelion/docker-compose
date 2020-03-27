@@ -1,0 +1,34 @@
+version: '3.3'
+
+services:
+  firefly_iii:
+    image: jc5x/firefly-iii:latest
+    volumes:
+      - firefly_iii_export:/var/www/firefly-iii/storage/export
+      - firefly_iii_upload:/var/www/firefly-iii/storage/upload
+    env_file: .env
+    networks:
+      - traefik
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:firefly.arneman.me,firefly.arneman.home,firefly
+      - traefik.frontend.entryPoints=http,https
+    depends_on:
+      - firefly_iii_db
+
+  firefly_iii_db:
+    image: postgres:10-alpine
+    env_file:
+      - db.env
+    volumes:
+      - firefly_iii_db:/var/lib/postgresql/data
+
+volumes:
+   firefly_iii_export:
+   firefly_iii_upload:
+   firefly_iii_db:
+
+networks:
+  traefik:
+    external: true
+
