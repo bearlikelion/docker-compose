@@ -19,6 +19,7 @@ Folding At Home | Distributed computing project | [Hub](https://hub.docker.com/r
 Guacamole | Client-less remote desktop gateway | [Hub](https://hub.docker.com/r/oznu/guacamole/)
 Matomo | Website Analytics | [Hub](https://hub.docker.com/_/matomo)
 Media | Automated media -  Deluge Jackett Radarr Sonarr | [ReadMe](/media/README.md)
+Minecraft | Minecraft Bedrock (Windows) Server | [Hub](https://hub.docker.com/r/itzg/minecraft-bedrock-server)
 Netdata | Performance monitoring | [Hub](https://hub.docker.com/r/netdata/netdata/)
 Nextcloud | A safe home for all your data | [Hub](https://hub.docker.com/_/nextcloud)
 OpenVPN | OpenVPN Server | **Work in progress**
