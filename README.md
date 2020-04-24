@@ -14,14 +14,19 @@ I run my containers on an [Alpine Linux](https://alpinelinux.org/) virtual machi
 Container | Description | Additional
 ----------|----------|----------
 BitWarden_rs | Password manager | [Hub](https://hub.docker.com/r/bitwardenrs/server)
+Firefly | Money manager | [Hub](https://hub.docker.com/r/jc5x/firefly-iii)
+Folding At Home | Distributed computing project | [Hub](https://hub.docker.com/r/linuxserver/foldingathome)
+Guacamole | Client-less remote desktop gateway | [Hub](https://hub.docker.com/r/oznu/guacamole/)
 Matomo | Website Analytics | [Hub](https://hub.docker.com/_/matomo)
-Media | Automated media server -  Deluge Jackett Radarr Sonarr | [ReadMe](/media/README.md)
+Media | Automated media -  Deluge Jackett Radarr Sonarr | [ReadMe](/media/README.md)
 Netdata | Performance monitoring | [Hub](https://hub.docker.com/r/netdata/netdata/)
 Nextcloud | A safe home for all your data | [Hub](https://hub.docker.com/_/nextcloud)
 OpenVPN | OpenVPN Server | **Work in progress**
-Organizr | HTPC/Homelab services organizer | [Hub](https://hub.docker.com/r/organizrtools/organizr-v2)
+Organizr | Services organizer | [Hub](https://hub.docker.com/r/organizrtools/organizr-v2)
 Pi-hole | Network based ad blocker | [Hub](https://hub.docker.com/r/pihole/pihole) - [Website](https://pi-hole.net/)
+Portainer | Docker Management GUI | [Hub](https://hub.docker.com/r/portainer/portainer)
 Relay | Tor Relay Server | [Hub](https://hub.docker.com/r/brunneis/tor-relay-arm)
+RTMP | RTMP Streaming Server | [Hub](https://hub.docker.com/r/alqutami/rtmp-hls)
 Teamspeak | Teamspeak 3 Server | [Hub](https://hub.docker.com/_/teamspeak)
 Traefik | Traefik reverse proxy | [Hub](https://hub.docker.com/_/traefik) - [Docs](https://docs.traefik.io/)
 Warrior | Archive Team warrior | [Hub](https://hub.docker.com/r/archiveteam/warrior-dockerfile/)
