@@ -1,14 +1,15 @@
-version: "3"
+version: "2.1"
 services:
-  folding-at-home:
-    image: yurinnick/folding-at-home
-    container_name: folding-at-home
+  foldingathome:
+    image: linuxserver/foldingathome
+    container_name: foldingathome
     environment:
-      - USER=marneman
-      - TEAM=0
-      - ENABLE_GPU=false
-      - ENABLE_SMP=true
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New-York
+    volumes:
+      - ./config:/config
     ports:
       - 7396:7396
-      - 36330:36330
+      - 36330:36330 #optional
     restart: unless-stopped
