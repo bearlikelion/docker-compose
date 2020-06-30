@@ -40,6 +40,7 @@ services:
     volumes:
       - nextcloud:/var/www/html
       - storagemount:/storage
+      - mediamount:/media
     environment:
       - MYSQL_HOST=db
       - REDIS_HOST=redis
@@ -63,8 +64,14 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=freenas.arneman.home,nolock,soft,rw
-      device: ":/mnt/FreeNAS-Vol/Storage"
+      o: addr=sauron.arneman.home,nolock,soft,rw
+      device: ":/Storage"
+  mediamount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=sauron.arneman.home,nolock,soft,rw
+      device: ":/Media"
 
 networks:
   internal:
