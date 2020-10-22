@@ -108,23 +108,34 @@ services:
       - ./tautulli:/config
     restart: unless-stopped
 
-  ombi:
-    image: linuxserver/ombi
-    container_name: ombi
-    environment:
-      - TZ=America/New_York
-    volumes:
-      - ./ombi:/config
-    networks:
-      - traefik
+  dizquetv:
+    container_name: dizquetv
     ports:
-      - 3579:3579
-    labels:
-      - traefik.enable=true
-      - traefik.frontend.rule=Host:ombi.arneman.home,ombi
-      - traefik.frontend.entryPoints=http
-      - traefik.port=3579
-    restart: unless-stopped
+      - '8000:8000'
+    volumes:
+      - './dizquetv:/home/node/app/.dizquetv'
+    image: 'vexorian/dizquetv:latest'
+
+  jellyfin:
+    container_name: jellyfin
+    image: jellyfin/jellyfin
+    network_mode: "host"
+    restart: "unless-stopped"
+    volumes:
+      - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
+      - /mnt/sauron/Media:/media
+
+  jfa-go:
+      container_name: jfa-go
+      ports:
+          - '8056:8056'
+      volumes:
+          - './jfa-go:/data'
+          - './jellyfin:/jf'
+          - '/etc/localtime:/etc/localtime:ro'
+      image: hrfee/jfa-go
+
 
 volumes:
   mediamount:

@@ -1,49 +1,15 @@
-version: '3'
-
+version: "2.1"
 services:
-  db:
-    container_name: nextcloud_mariadb
-    image: mariadb:latest
-    #command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
-    restart: always
-    volumes:
-      - db:/var/lib/mysql
-    env_file:
-      - db.env
-    networks:
-      - internal
-
-  redis:
-    container_name: nextcloud_redis
-    image: redis:alpine
-    restart: always
-    networks:
-      - internal
-
-  cron:
-    container_name: nextcloud_cron
-    image: nextcloud:fpm-alpine
-    restart: always
-    volumes:
-      - nextcloud:/var/www/html
-    entrypoint: /cron.sh
-    networks:
-      - internal
-    depends_on:
-      - db
-      - redis
-
-  app:
+  nextcloud:
+    image: linuxserver/nextcloud
     container_name: nextcloud
-    image: nextcloud:latest
-    restart: always
+    environment:
+      - TZ=America/New_York
     volumes:
-      - nextcloud:/var/www/html
+      - ./appdata:/config
+      - ./data:/data
       - storagemount:/storage
       - mediamount:/media
-    environment:
-      - MYSQL_HOST=db
-      - REDIS_HOST=redis
     networks:
       - traefik
       - internal
@@ -51,11 +17,9 @@ services:
       - traefik.enable=true
       - traefik.frontend.rule=Host:cloud.arneman.me,cloud.arneman.home,cloud
       - traefik.frontend.entryPoints=http,https
-    env_file:
-      - db.env
-    depends_on:
-      - db
-      - redis
+    ports:
+      - 8443:443
+    restart: unless-stopped
 
 volumes:
   db:
