@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  kimai2:
+    ports:
+      - '8001:8001'
+    container_name: kimai
+    image: 'kimai/kimai2:latest-dev'
+    environment:
+      - APP_ENV=prod
+      - TRUSTED_HOSTS=localhost,alpine,time,time.arneman.home
+    volumes:
+      - public:/opt/kimai/public
+      - var:/opt/kimai/var
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:time.arneman.home,time
+      - traefik.frontend.entryPoints=http
+      - traefik.port=8001
+    networks:
+      - traefik
+
+networks:
+  traefik:
+    external: true
+
+volumes:
+  var:
+  public:

@@ -5,7 +5,6 @@ services:
     image: mariadb
     container_name: matomo_db
     command: --max-allowed-packet=64MB
-    restart: always
     networks:
       - matomo
     volumes:
@@ -15,18 +14,12 @@ services:
     restart: unless-stopped
 
   app:
-    image: matomo:latest
+    image: matomo:fpm-alpine
     container_name: matomo
-    restart: always
     links:
       - db
     networks:
       - matomo
-      - traefik
-    labels:
-      - traefik.enable=true
-      - traefik.frontend.rule=Host:stats.arneman.me
-      - traefik.frontend.entryPoints=http,https
     volumes:
       - ./config:/var/www/html/config:rw
       - ./logs:/var/www/html/logs
@@ -37,11 +30,29 @@ services:
       - ./db.env
     restart: unless-stopped
 
+  web:
+    image: nginx:alpine
+    container_name: matomo_web
+    restart: unless-stopped
+    networks:
+      - matomo
+      - traefik
+    volumes:
+      - matomo:/var/www/html:ro
+      # see https://github.com/matomo-org/matomo-nginx
+      - ./matomo.conf:/etc/nginx/conf.d/default.conf:ro
+    labels:
+      - traefik.enable=true
+      - traefik.frontend.rule=Host:stats.arneman.me,stats.arneman.home,stats
+      - traefik.frontend.entryPoints=http,https
+    ports:
+      - 8082:80
+
 volumes:
   db:
   matomo:
 
 networks:
-    traefik:
-        external: true
-    matomo:
+  traefik:
+    external: true
+  matomo:

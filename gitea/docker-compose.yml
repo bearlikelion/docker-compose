@@ -1,0 +1,14 @@
+version: '2'
+services:
+  gitea:
+    container_name: gitea
+    image: gitea/gitea:latest
+    volumes:
+      - ./data:/data
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    environment:
+      - PUID=1001
+      - PGID=1001
+    restart: always
