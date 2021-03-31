@@ -1,0 +1,19 @@
+version: "3"
+services:
+  valheim:
+    container_name: valheim_iv
+    image: mbround18/valheim:latest
+    ports:
+      - 5456:5456/udp
+      - 5457:5457/udp
+      - 5458:5458/udp
+    environment:
+      - PORT=5456
+      - NAME="Friendos and Vikings IV"
+      - WORLD="NewHaven"
+      - PASSWORD="catdog"
+      - TZ=America/New_York
+      - PUBLIC=1
+    volumes:
+    - ./valheim/saves:/home/steam/.config/unity3d/IronGate/Valheim
+    - ./valheim/server:/home/steam/valheim

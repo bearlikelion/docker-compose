@@ -4,4 +4,4 @@ services:
     image: alqutami/rtmp-hls
     ports:
       - '1935:1935'
-      - '8080:8080'
+      - '8081:8080'

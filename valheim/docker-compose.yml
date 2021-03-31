@@ -1,0 +1,19 @@
+version: "3"
+services:
+  valheim:
+    container_name: valheim
+    image: mbround18/valheim:latest
+    ports:
+      - 3456:3456/udp
+      - 3457:3457/udp
+      - 3458:3458/udp
+    environment:
+      - PORT=3456
+      - NAME="Friendos and Vikings II"
+      - WORLD="Friendos II"
+      - PASSWORD="porkroll"
+      - TZ=America/New_York
+      - PUBLIC=1
+    volumes:
+    - ./valheim/saves:/home/steam/.config/unity3d/IronGate/Valheim
+    - ./valheim/server:/home/steam/valheim
