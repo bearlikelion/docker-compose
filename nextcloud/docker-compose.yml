@@ -1,7 +1,7 @@
 version: "2.1"
 services:
   nextcloud:
-    image: linuxserver/nextcloud
+    image: linuxserver/nextcloud:latest
     container_name: nextcloud
     environment:
       - TZ=America/New_York
@@ -28,13 +28,13 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=sauron.arneman.home,nolock,soft,rw
+      o: addr=10.0.0.241,nolock,soft,rw
       device: ":/Storage"
   mediamount:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=sauron.arneman.home,nolock,soft,rw
+      o: addr=10.0.0.241,nolock,soft,rw
       device: ":/Media"
 
 networks:

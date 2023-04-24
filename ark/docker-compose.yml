@@ -1,0 +1,33 @@
+version: '3'
+services:
+  server:
+    restart: always
+    container_name: ark_server
+    image: hermsi/ark-server:latest
+    volumes:
+      - ./ark-server:/app
+      - ./ark-server-backups:/home/steam/ARK-Backups
+    environment:
+      - SESSION_NAME=Friendos and Dinos
+      - SERVER_MAP=Fjordur
+      - SERVER_PASSWORD=
+      - SERVER_LIST_PORT=27017
+      - GAME_CLIENT_PORT=7778
+      - ADMIN_PASSWORD=m4rkMaN
+      - MAX_PLAYERS=69
+      - UPDATE_ON_START=true
+      # - BACKUP_ON_STOP=${BACKUP_ON_STOP}
+      # - PRE_UPDATE_BACKUP=${PRE_UPDATE_BACKUP}
+      - WARN_ON_STOP=true
+      - GAME_MOD_IDS=849372965,1999447172,1404697612,1428596566
+    ports:
+      # Port for connections from ARK game client
+      - "7787:7778/udp"
+      # Raw UDP socket port (always Game client port +1)
+      - "7779:7779/udp"
+      # RCON management port
+      - "27020:27020/tcp"
+      # Steam's server-list port
+      - "27017:27017/udp"
+    networks:
+      - default

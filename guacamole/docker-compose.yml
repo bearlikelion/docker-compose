@@ -3,7 +3,7 @@ services:
   guacamole:
     container_name: guacamole
     ports:
-      - '8080:8080'
+      - '8087:8080'
     volumes:
       - ./config:/config
     image: oznu/guacamole

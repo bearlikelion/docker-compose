@@ -1,0 +1,80 @@
+version: '3.8'
+x-common:
+  database:
+    &db-environment
+    # Do not remove the "&db-password" from the end of the line below, it is important
+    # for Panel functionality.
+    MYSQL_PASSWORD: &db-password "PTGSM"
+    MYSQL_ROOT_PASSWORD: "PTGSM_ROOT"
+    MYSQL_ROOT_HOST: "%"
+  panel:
+    &panel-environment
+    APP_URL: "https://gsm.arneman.home"
+    # A list of valid timezones can be found here: http://php.net/manual/en/timezones.php
+    APP_TIMEZONE: "America/New_York"
+    APP_SERVICE_AUTHOR: "gsm@arneman.home"
+    # Uncomment the line below and set to a non-empty value if you want to use Let's Encrypt
+    # to generate an SSL certificate for the Panel.
+    # LE_EMAIL: ""
+  mail:
+    &mail-environment
+    MAIL_FROM: "gsm@arneman.home"
+    MAIL_DRIVER: "smtp"
+    MAIL_HOST: "mail"
+    MAIL_PORT: "1025"
+    MAIL_USERNAME: ""
+    MAIL_PASSWORD: ""
+    MAIL_ENCRYPTION: "true"
+
+#
+# ------------------------------------------------------------------------------------------
+# DANGER ZONE BELOW
+#
+# The remainder of this file likely does not need to be changed. Please only make modifications
+# below if you understand what you are doing.
+#
+services:
+  database:
+    image: library/mysql:8.0
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "./database:/var/lib/mysql"
+    environment:
+      <<: *db-environment
+      MYSQL_DATABASE: "panel"
+      MYSQL_USER: "pterodactyl"
+  cache:
+    image: redis:alpine
+    restart: always
+  panel:
+    image: ghcr.io/pterodactyl/panel:latest
+    restart: always
+    ports:
+      - "8086:80"
+      - "8444:443"
+    links:
+      - database
+      - cache
+    volumes:
+      - "./var/:/app/var/"
+      - "./nginx/:/etc/nginx/conf.d/"
+      - "./certs/:/etc/letsencrypt/"
+      - "./logs/:/app/storage/logs"
+    environment:
+      <<: *panel-environment
+      <<: *mail-environment
+      DB_PASSWORD: *db-password
+      APP_ENV: "production"
+      APP_ENVIRONMENT_ONLY: "false"
+      CACHE_DRIVER: "redis"
+      SESSION_DRIVER: "redis"
+      QUEUE_DRIVER: "redis"
+      REDIS_HOST: "cache"
+      DB_HOST: "database"
+
+# networks:
+#   default:
+#     ipam:
+#       config:
+#         - subnet: 172.20.0.0/16

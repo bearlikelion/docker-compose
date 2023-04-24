@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+    core-keeper-server:
+        volumes:
+            - './server-data:/data'
+        restart: unless-stopped
+        image: 'tedtramonte/core-keeper-server:latest'
+        container_name: corekeeper
+        environment:
+            - WORLD_NAME=Hello Friendo
+            - WORLD_SEED=69420lol
+            - MAX_PLAYERS=69

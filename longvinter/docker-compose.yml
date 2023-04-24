@@ -1,0 +1,16 @@
+version: '3.3'
+services:
+  longvinter:
+    container_name: longvinter
+    image: zskullz/longvinter-server
+    volumes:
+    - './config:/home/steam/longvinter-linux-server/Longvinter/Saved/Config/LinuxServer'
+    - './saves:/home/steam/longvinter-linux-server/Longvinter/Saved/SaveGames'
+    ports:
+    - '7777:7777/udp'
+    - '7777:7777/tcp'
+    - '27015:27015/udp'
+    - '27016:27016/udp'
+    - '27015:27015/tcp'
+    - '27016:27016/tcp'
+    restart: unless-stopped

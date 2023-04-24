@@ -1,0 +1,23 @@
+version: "2.1"
+services:
+  plex:
+    image: lscr.io/linuxserver/plex
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+      - PLEX_CLAIM=claim-CKs8vBV1cEnU6EDYavfS #optional
+    volumes:
+      - ./config:/config
+      - mediamount:/media
+    restart: unless-stopped
+
+volumes:
+  mediamount:
+    driver: local
+    driver_opts:
+      type: nfs
+      o: addr=10.0.0.241,nolock,soft,rw
+      device: ":/Media"

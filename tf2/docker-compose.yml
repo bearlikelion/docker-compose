@@ -1,0 +1,21 @@
+version: '3.3'
+services:
+    tf2:
+        network_mode: host
+        volumes:
+            - './data:/home/steam/tf-dedicated/'
+        container_name: tf2
+        environment:
+            - SRCDS_TOKEN=46EC8F9C2F582B0F5C7D49D5B55C7A77
+            - SRCDS_RCONPW="m4rkman"
+            - SRCDS_PW=""
+            - SRCDS_PORT=27015
+            - SRCDS_TV_PORT=27020
+            - SRCDS_IP="0"
+            - SRCDS_FPSMAX=300
+            - SRCDS_TICKRATE=66
+            - SRCDS_MAXPLAYERS=24
+            - SRCDS_REGION=0
+            - SRCDS_STARTMAP="Pacifica_remake"
+            - SRCDS_HOSTNAME="Hello Friendo TF2"
+        image: cm2network/tf2

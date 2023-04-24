@@ -2,15 +2,15 @@ version: '3.4'
 
 services:
   bds:
+    container_name: minecraft
     image: itzg/minecraft-bedrock-server
     environment:
       EULA: "TRUE"
       GAMEMODE: survival
       DIFFICULTY: normal
+      MAX_PLAYESRS: "30"
     ports:
       - 19132:19132/udp
     volumes:
-      - bds:/data
+      - ./data:/data
 
-volumes:
-  bds: {}

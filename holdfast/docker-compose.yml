@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+    holdfastnaw:
+        container_name: holdfast
+        image: cm2network/holdfastnaw
+        network_mode: host
+        environment:
+            FPSMAX: 60
+            SERVER_REGION: 'us'
+            SERVER_CONFIG_PATH: "serverconfig_sg.txt"
+        volumes:
+            - './data:/home/steam/holdfastnaw-dedicated/'

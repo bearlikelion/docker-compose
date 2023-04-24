@@ -1,10 +1,10 @@
 version: "3"
 services:
   # Deluge - torrent downloader
-  deluge:
+  deluge:    
     image: linuxserver/deluge:latest
     container_name: deluge
-    network_mode: "host"
+    # network_mode: "host"
     environment:
       - PUID=0
       - PGID=0
@@ -15,8 +15,8 @@ services:
       - traefik.frontend.rule=Host:deluge.arneman.home,deluge,downloads,downloads.arneman.home
       - traefik.frontend.entryPoints=http
       - traefik.port=8112
-    # networks:
-    #   - traefik
+    networks:
+      - traefik
     ports:
       - 8112:8112
       - 45000:45000
@@ -76,6 +76,8 @@ services:
   jackett:
     image: linuxserver/jackett
     container_name: jackett
+    ports:
+      - 9117:9117
     environment:
       - UMASK_SET=022
       - TZ=America/New_York
@@ -92,8 +94,10 @@ services:
 
   # Tautulli - Plex Stats (formally PlexPy)
   tautulli:
-    image: linuxserver/tautulli
+    image: tautulli/tautulli
     container_name: tautulli
+    ports:
+      - 8181:8181
     environment:
       - UMASK_SET=022
       - TZ=America/New_York
@@ -108,33 +112,33 @@ services:
       - ./tautulli:/config
     restart: unless-stopped
 
-  dizquetv:
-    container_name: dizquetv
-    ports:
-      - '8000:8000'
-    volumes:
-      - './dizquetv:/home/node/app/.dizquetv'
-    image: 'vexorian/dizquetv:latest'
+  # dizquetv:
+  #   container_name: dizquetv
+  #   ports:
+  #     - '8000:8000'
+  #   volumes:
+  #     - './dizquetv:/home/node/app/.dizquetv'
+  #   image: 'vexorian/dizquetv:latest'
 
-  jellyfin:
-    container_name: jellyfin
-    image: jellyfin/jellyfin
-    network_mode: "host"
-    restart: "unless-stopped"
-    volumes:
-      - ./jellyfin/config:/config
-      - ./jellyfin/cache:/cache
-      - /mnt/sauron/Media:/media
+  # jellyfin:
+  #   container_name: jellyfin
+  #   image: jellyfin/jellyfin
+  #   network_mode: "host"
+  #   restart: "unless-stopped"
+  #   volumes:
+  #     - ./jellyfin/config:/config
+  #     - ./jellyfin/cache:/cache
+  #     - /mnt/sauron/Media:/media
 
-  jfa-go:
-      container_name: jfa-go
-      ports:
-          - '8056:8056'
-      volumes:
-          - './jfa-go:/data'
-          - './jellyfin:/jf'
-          - '/etc/localtime:/etc/localtime:ro'
-      image: hrfee/jfa-go
+  # jfa-go:
+  #     container_name: jfa-go
+  #     ports:
+  #         - '8056:8056'
+  #     volumes:
+  #         - './jfa-go:/data'
+  #         - './jellyfin:/jf'
+  #         - '/etc/localtime:/etc/localtime:ro'
+  #     image: hrfee/jfa-go
 
 
 volumes:
@@ -142,7 +146,7 @@ volumes:
     driver: local
     driver_opts:
       type: nfs
-      o: addr=sauron.arneman.home,nolock,soft,rw
+      o: addr=192.168.1.43,nolock,soft,rw
       device: ":/Media"
 
 networks:

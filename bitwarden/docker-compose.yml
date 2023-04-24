@@ -9,8 +9,8 @@ services:
     volumes:
       - ./bw-data:/data
       - ./ssl:/ssl
-    # ports:
-    #     - 8443:80
+    ports:
+        - 8443:80
     labels:
       - traefik.enable=true
       - traefik.web.frontend.rule=Host:vault.arneman.me
@@ -21,7 +21,7 @@ services:
       - traefik.frontend.entryPoints=redirecthttps,https
     environment:
       WEBSOCKET_ENABLED: 'true'
-      # ROCKET_TLS: '{certs = "/ssl/vault.crt", key = "/ssl/vault.key"}'
+      ROCKET_TLS: '{certs = "/ssl/vault.crt", key = "/ssl/vault.key"}'
       SIGNUPS_ALLOWED: 'false'
     networks:
       - traefik

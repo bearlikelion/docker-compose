@@ -1,0 +1,11 @@
+version: '3.4'
+
+services:
+  soldat:
+    container_name: soldat
+    image: npflan/soldat
+    ports:
+      - 23073:23073/udp
+      - 23073:23073/tcp
+      - 23083:23083/udp
+    working_dir: /soldat
