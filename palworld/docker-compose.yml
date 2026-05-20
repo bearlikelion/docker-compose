@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  palworld:
+    container_name: palworld
+    image: kagurazakanyaa/palworld
+    restart: unless-stopped
+    ports:
+      - 8211:8211/udp
+      - 25575:25575/tcp
+    environment:
+      MAX_PLAYERS: 32
+      GAME_PORT: 8211
+      ENABLE_MULTITHREAD: "true"
+      IS_PUBLIC: "false"
+      SERVER_NAME: "Palworld Server"
+      SERVER_DESC: "A Palworld dedicated server"
+      ADMIN_PASSWORD: "changeme_admin"
+      SERVER_PASSWORD: ""
+      RCON_ENABLED: "true"
+      RCON_PORT: 25575
+    volumes:
+      - ./data:/opt/palworld/Pal/Saved
+    user: "1000"
